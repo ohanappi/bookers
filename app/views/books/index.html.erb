@@ -1,0 +1,54 @@
+
+      <h1>Books</h1>
+      <table>
+        
+        <thead>
+          <th>Title</th>
+          <th>Body</th>
+          <th colspan="3"></th>
+        </thead>
+        
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td><%= book.title %></td>
+              <td><%= book.body %></td>
+              <td><%= link_to "show" , book_path(book.id) ,method: :get %></td>
+              <td><%= link_to "edit" , edit_book_path(book.id) ,method: :get %></td>
+              <td><%= link_to "destroy", destroy_book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        
+      </table>
+      
+<!-- 投稿機能　-->    
+<% if @book.errors.any? %>
+    <h2>New book</h2>
+
+  <%= @book.errors.count %> errors prohibited this book from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+   
+    <!-- form_with部分 -->
+    <%= form_with model: Book.new do |f| %>
+      <h4>Title</h4>
+      <%= f.text_field :title %>
+	
+      <h4>Body</h4>
+      <%= f.text_area :body %>
+	
+      <br><%= f.submit 'Create Book' %>
+  
+      </p>
+    <% end %>
+    
+    <div id="error-explanation">
+      
+    </div>
+    
+</div>
